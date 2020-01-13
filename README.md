@@ -46,6 +46,7 @@ Once you have copy of this project, you need to install its dependencies
 by calling
 ```
 yarn install
+yarn workspaces run build
 ```
 at the root of the repository.
 
@@ -53,8 +54,11 @@ To start the application, first start a DAML ledger using
 ```
 ./daml-start.sh
 ```
-After this, start the UI server via
+This will continue running to serve ledger requests.
+
+Next, in another terminal window, start the UI server via
 ```
+cd ui/
 yarn start
 ```
 This should open a browser window with a login screen. If it doesn't, you
