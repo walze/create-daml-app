@@ -1,8 +1,8 @@
 import React from 'react'
 import { List } from 'semantic-ui-react'
 import ListActionItem from './ListActionItem';
-import { Party } from '@digitalasset/daml-json-types';
-import { User } from '../daml/create-daml-app/User';
+import { Party } from '@daml/types';
+import { User } from '@daml2ts/create-daml-app/lib/create-daml-app/User';
 
 type Props = {
   users: User[];

@@ -1,8 +1,8 @@
 import React from 'react'
 import { Button, Form, Grid, Header, Image, Segment } from 'semantic-ui-react'
-import Credentials, { computeToken } from '../ledger/Credentials';
-import Ledger from '@digitalasset/daml-ledger-fetch';
-import { User } from '../daml/create-daml-app/User';
+import Credentials, { computeToken, makeCredentials } from '../Credentials';
+import Ledger from '@daml/ledger';
+import { User } from '@daml2ts/create-daml-app/lib/create-daml-app/User';
 
 type Props = {
   onLogin: (credentials: Credentials) => void;
@@ -24,7 +24,7 @@ const LoginScreen: React.FC<Props> = ({onLogin}) => {
         alert('Wrong password.');
         return;
       }
-      const credentials: Credentials = {party: username, token: password};
+      const credentials = makeCredentials(username, password);
       const ledger = new Ledger(credentials.token);
       const user = await ledger.lookupByKey(User, username);
       if (user === null) {
@@ -40,7 +40,7 @@ const LoginScreen: React.FC<Props> = ({onLogin}) => {
   const handleSignup = async (event: React.FormEvent) => {
     try {
       event.preventDefault();
-      let credentials: Credentials = {party: username, token: password};
+      const credentials = makeCredentials(username, password);
       const ledger = new Ledger(credentials.token);
       const user: User = {username, friends: []};
       await ledger.create(User, user);
